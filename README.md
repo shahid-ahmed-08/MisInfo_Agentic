@@ -1,114 +1,88 @@
-# Misinformation Guardian
+# Misinfo Guardian
 
-An AI-powered Chrome extension and FastAPI backend that detects misinformation on Twitter/X in real-time using advanced LLM-based verification pipelines.
+A comprehensive misinformation detection and prevention system built with Chrome Extension, FastAPI backend, and advanced search infrastructure.
 
-## 🚀 Features
+## 🎯 Overview
 
-- **Real-time Detection**: Automatically detects and analyzes tweets as you browse
-- **AI-Powered Verification**: Uses LLM agents to extract claims, classify content, and verify information
-- **Multi-Source Evidence**: Integrates with Serper and DuckDuckGo for fact-checking
-- **Chrome Extension**: Seamless browser integration with overlay UI
-- **FastAPI Backend**: Scalable, production-ready API server
+Misinfo Guardian helps users identify and verify potentially misleading information on the web through real-time analysis and fact-checking capabilities.
 
 ## 📁 Project Structure
 
 ```
 misinfo_guardian/
-├── extension/          # Chrome extension (Manifest V3)
-├── backend/            # FastAPI backend
-│   ├── app/            # API routes, services, models
-│   ├── agent/          # AI agent pipeline
-│   ├── tools/          # Search tool integrations
-│   └── common/         # Shared utilities
-└── scripts/            # Deployment scripts
+├── extension/          # Chrome Extension (Person A)
+│   ├── content/
+│   │   └── overlay/   # UI overlay code
+│   ├── background/    # Background service worker
+│   └── manifest.json  # Extension manifest
+│
+├── backend/           # FastAPI + Agent Logic (Person B)
+│   ├── app/          # FastAPI application
+│   ├── agent/        # Agent logic
+│   └── tools/        # Agent tools
+│
+└── infra/            # Search tools, MCP, integration, logs (Person C)
+    ├── mcp/          # MCP integration
+    ├── search/       # Search tools
+    ├── storage/      # Storage utilities
+    └── scripts/      # Infrastructure scripts
 ```
 
-## 🛠️ Setup
+## 🚀 Getting Started
 
-### Backend
+### Prerequisites
 
-1. Navigate to the backend directory:
-```bash
-cd backend
-```
+- Python 3.8+
+- Node.js (for extension development)
+- Chrome/Chromium browser
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+### Extension Setup
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Copy environment variables:
-```bash
-cp .env.example .env
-```
-
-5. Update `.env` with your API keys:
-- `SERPER_API_KEY`: Your Serper API key
-- `OPENAI_API_KEY` or `ANTHROPIC_API_KEY`: Your LLM provider API key
-- `DUCKDUCKGO_ENABLED`: Set to `true` to enable DuckDuckGo search
-
-6. Run the backend:
-```bash
-python -m app.main
-# Or use the script:
-../scripts/run_backend.sh
-```
-
-### Extension
-
-1. Navigate to the extension directory:
-```bash
-cd extension
-```
-
+1. Navigate to `extension/` directory
 2. Load the extension in Chrome:
-- Open Chrome and go to `chrome://extensions/`
-- Enable "Developer mode"
-- Click "Load unpacked"
-- Select the `extension` folder
+   - Open Chrome and go to `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked" and select the `extension/` directory
 
-## 🔧 Configuration
+### Backend Setup
 
-### Backend Environment Variables
+1. Navigate to `backend/` directory
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the FastAPI server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
-See `backend/.env.example` for all available configuration options.
+### Infrastructure Setup
 
-### Extension Settings
+1. Navigate to `infra/` directory
+2. Configure MCP and search tools
+3. Set up storage and logging
 
-Configure the backend API URL in `extension/content/utils.js` or through the extension popup.
+## 🛠️ Development
 
-## 🧪 Testing
+### Contributing
 
-Run backend tests:
-```bash
-cd backend
-pytest tests/
-```
+This project is organized by component ownership:
+- **Person A**: Chrome Extension development
+- **Person B**: FastAPI backend and agent logic
+- **Person C**: Search tools, MCP integration, and infrastructure
 
-## 📝 Development
+## 📝 License
 
-- Backend API: FastAPI with async support
-- Extension: Vanilla JavaScript (Manifest V3)
-- AI Pipeline: Modular agent stages (extract → classify → query → verify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## 🤝 Contributors
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## 📄 License
-
-MIT License
-
-## 🙏 Acknowledgments
-
-Built for Mumbai Hacks 2024
+- Person A: Chrome Extension
+- Person B: FastAPI + Agent Logic
+- Person C: Search tools, MCP, integration, logs
 
