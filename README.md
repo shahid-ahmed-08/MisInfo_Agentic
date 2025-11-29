@@ -1,140 +1,88 @@
-# Misinfo Guardian — Agentic Misinformation Detection System
+# Misinfo Guardian
 
-Misinfo Guardian is an **agentic AI system** that detects misinformation in real-time using:
+A comprehensive misinformation detection and prevention system built with Chrome Extension, FastAPI backend, and advanced search infrastructure.
 
-- **LangGraph agent loops**
-- **Reflection + Retry strategy**
-- **Local MCP (Model Context Protocol) server**
-- **Resilient web search tool (Serper + DuckDuckGo fallback)**
-- **FastAPI backend**
-- Optional Chrome Extension for inline fact checking
+## 🎯 Overview
 
-This project was built for a 24-hour hackathon with a focus on reliability, accuracy, and agentic reasoning.
+Misinfo Guardian helps users identify and verify potentially misleading information on the web through real-time analysis and fact-checking capabilities.
 
----
-
-## 🚀 Features
-
-- Extracts claims automatically from text
-- Generates rich search queries
-- Uses MCP server to run web search tools
-- Scores evidence and determines factual verdicts
-- Reflection Loop: retries and improves results for low-confidence cases
-- End-to-end FastAPI interface (`/api/verify`)
-- Fully modular architecture for extension integration
-
----
-
-## 🧠 Architecture
+## 📁 Project Structure
 
 ```
 misinfo_guardian/
-├── backend/ # FastAPI + LangGraph agent
-├── infra/   # MCP server, tools, search layer
-├── extension/ # Chrome extension (optional, future)
-└── README.md
+├── extension/          # Chrome Extension (Person A)
+│   ├── content/
+│   │   └── overlay/   # UI overlay code
+│   ├── background/    # Background service worker
+│   └── manifest.json  # Extension manifest
+│
+├── backend/           # FastAPI + Agent Logic (Person B)
+│   ├── app/          # FastAPI application
+│   ├── agent/        # Agent logic
+│   └── tools/        # Agent tools
+│
+└── infra/            # Search tools, MCP, integration, logs (Person C)
+    ├── mcp/          # MCP integration
+    ├── search/       # Search tools
+    ├── storage/      # Storage utilities
+    └── scripts/      # Infrastructure scripts
 ```
 
----
+## 🚀 Getting Started
 
-## 🛠️ Tech Stack
+### Prerequisites
 
-- Python 3.10+
-- FastAPI
-- LangGraph
-- MCP Protocol (custom server)
-- Serper API + DuckDuckGo fallback
-- Uvicorn
-- Requests
+- Python 3.8+
+- Node.js (for extension development)
+- Chrome/Chromium browser
 
----
+### Extension Setup
 
-## 🔧 Setup Instructions
+1. Navigate to `extension/` directory
+2. Load the extension in Chrome:
+   - Open Chrome and go to `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked" and select the `extension/` directory
 
-### 1. Clone repo
+### Backend Setup
 
-```bash
-git clone <YOUR_REPO_URL>
-cd misinfo_guardian
-```
+1. Navigate to `backend/` directory
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the FastAPI server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
-### 2. Create .env file
+### Infrastructure Setup
 
-```bash
-cp .env.example .env
-```
+1. Navigate to `infra/` directory
+2. Configure MCP and search tools
+3. Set up storage and logging
 
-Add your `SERPER_API_KEY` and any other keys.
+## 🛠️ Development
 
-### 3. Install dependencies
+### Contributing
 
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Start MCP Server
-
-```bash
-cd infra/mcp
-python server.py
-```
-
-Must print:
-
-```
-[registry] Registered tool: search
-TOOL_REGISTRY contains: ['search']
-```
-
-### 5. Start Backend
-
-```bash
-cd backend
-uvicorn app.main:app --reload
-```
-
-**Swagger UI:**
-http://127.0.0.1:8000/docs
-
-### 6. Test Agentic Engine
-
-```bash
-python -m agent.test_agent
-```
-
----
-
-## 🧪 API Usage
-
-**POST** `/api/verify` 
-
-```json
-{
-  "text": "Claim to fact-check"
-}
-```
-
-**Response:**
-
-- `claim` 
-- `queries` 
-- `sources` 
-- `verdict` 
-- `confidence` 
-- `attempts` 
-- `reasoning` 
-
----
-
-## 📦 Future Work
-
-- Chrome extension for inline fact-checking
-- Historical misinformation patterns
-- Multi-source credibility scoring
-- Real-time news monitoring
-
----
+This project is organized by component ownership:
+- **Person A**: Chrome Extension development
+- **Person B**: FastAPI backend and agent logic
+- **Person C**: Search tools, MCP integration, and infrastructure
 
 ## 📝 License
 
-MIT License (included in LICENSE file)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributors
+
+- Person A: Chrome Extension
+- Person B: FastAPI + Agent Logic
+- Person C: Search tools, MCP, integration, logs
+
