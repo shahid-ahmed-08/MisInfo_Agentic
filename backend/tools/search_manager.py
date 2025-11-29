@@ -3,6 +3,9 @@ import requests
 
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 
+# Simple in-memory cache for search results
+_search_cache = {}
+
 
 def search_manager(query: str):
     """
@@ -55,3 +58,15 @@ def search_manager(query: str):
             pass
 
     return results[:5]
+
+
+def cached_search(query: str):
+    """
+    Cached wrapper around search_manager to avoid duplicate searches.
+    """
+    if query in _search_cache:
+        return _search_cache[query]
+    
+    results = search_manager(query)
+    _search_cache[query] = results
+    return results
